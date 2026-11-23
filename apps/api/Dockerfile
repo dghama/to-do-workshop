@@ -49,4 +49,5 @@ COPY --from=build /workspace/apps/api/prisma ./apps/api/prisma
 COPY --from=build /workspace/packages/shared/dist ./packages/shared/dist
 
 WORKDIR /workspace/apps/api
+USER node
 CMD ["node", "dist/src/server.js"]

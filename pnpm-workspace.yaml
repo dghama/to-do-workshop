@@ -3,6 +3,10 @@ packages:
   - packages/*
   - tests/*
 
+blockExoticSubdeps: true
+minimumReleaseAge: 10080
+trustPolicy: no-downgrade
+
 catalog:
   '@babel/core': 7.29.13
   '@babel/preset-env': 7.29.14

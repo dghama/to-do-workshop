@@ -1,29 +1,29 @@
-schema_version: "1.0"
+schema_version: '1.0'
 
 preset:
-  id: "jira-branching"
-  name: "Jira Feature Branching"
-  version: "1.0.0"
-  description: "Use Jira IDs for feature branches and specification directories"
+  id: 'jira-branching'
+  name: 'Jira Feature Branching'
+  version: '1.0.0'
+  description: 'Use Jira IDs for feature branches and specification directories'
 
 requires:
-  speckit_version: ">=1.0.7"
+  speckit_version: '>=1.0.7'
   extensions:
-    - "git"
+    - 'git'
 
 provides:
   templates:
-    - type: "command"
-      name: "speckit.specify"
-      file: "commands/specify.md"
-      description: "Select Jira feature names before running the standard specification workflow"
-      strategy: "prepend"
-    - type: "command"
-      name: "speckit.git.validate"
-      file: "commands/git-validate.md"
-      description: "Validate Jira feature branches alongside standard branch names"
-      strategy: "prepend"
+    - type: 'command'
+      name: 'speckit.specify'
+      file: 'commands/specify.md'
+      description: 'Select Jira feature names before running the standard specification workflow'
+      strategy: 'prepend'
+    - type: 'command'
+      name: 'speckit.git.validate'
+      file: 'commands/git-validate.md'
+      description: 'Validate Jira feature branches alongside standard branch names'
+      strategy: 'prepend'
 
 tags:
-  - "jira"
-  - "branching"
+  - 'jira'
+  - 'branching'

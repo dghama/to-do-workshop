@@ -23,11 +23,11 @@ specification steps.
    - `GIT_BRANCH_NAME=feature/<lowercase-key>-<short-name>`
    - `SPECIFY_FEATURE_DIRECTORY=specs/<lowercase-key>-<short-name>`
    - `SPECIFY_FEATURE=feature/<lowercase-key>-<short-name>`
-   Use the same lowercase Jira key and exact short name in all three. The
-   short name must have no more than five hyphen-separated words. Do not use a
-   stale value from an earlier invocation. If the user also supplied a
-   conflicting explicit override, ask which value to use before changing
-   anything.
+     Use the same lowercase Jira key and exact short name in all three. The
+     short name must have no more than five hyphen-separated words. Do not use a
+     stale value from an earlier invocation. If the user also supplied a
+     conflicting explicit override, ask which value to use before changing
+     anything.
 5. Before creating a branch, verify that Git is available, that the Git
    `before_specify` hook is enabled and executable, and that the branch name
    is valid and at most 244 UTF-8 bytes. Stop with an error if any check fails.

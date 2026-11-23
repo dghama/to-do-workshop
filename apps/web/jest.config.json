@@ -1,0 +1,12 @@
+{
+  "rootDir": ".",
+  "roots": ["<rootDir>/src"],
+  "testEnvironment": "jsdom",
+  "extensionsToTreatAsEsm": [".ts", ".tsx"],
+  "testMatch": ["**/*.test.ts", "**/*.test.tsx"],
+  "transform": {
+    "^.+\\.[tj]sx?$": ["babel-jest", { "rootMode": "upward" }]
+  },
+  "setupFilesAfterEnv": ["<rootDir>/src/test-setup.ts"],
+  "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json"]
+}

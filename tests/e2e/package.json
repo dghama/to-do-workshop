@@ -1,0 +1,23 @@
+{
+  "name": "@todo/e2e",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test:e2e": "corepack pnpm --filter @todo/shared build && corepack pnpm --filter @todo/api build && playwright test --config playwright.config.ts --project=chromium",
+    "test:api": "corepack pnpm --filter @todo/shared build && corepack pnpm --filter @todo/api build && playwright test --config playwright.config.ts --project=api-smoke",
+    "test:all": "corepack pnpm --filter @todo/shared build && corepack pnpm --filter @todo/api build && playwright test --config playwright.config.ts",
+    "allure:report": "allure generate allure-results --clean --output allure-report",
+    "allure:open": "allure open allure-report",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@todo/shared": "workspace:*"
+  },
+  "devDependencies": {
+    "allure-commandline": "catalog:",
+    "allure-playwright": "catalog:",
+    "@playwright/test": "catalog:",
+    "@types/node": "catalog:"
+  }
+}

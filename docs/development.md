@@ -20,6 +20,20 @@ Never put staging/production secrets in source control. The checked-in staging a
 
 The sample environments use distinct host ports so dev, test, staging, and production Compose projects can run alongside one another. If you change a host port, keep it unique across other projects on the machine; Compose service-to-service URLs should continue to use the service name and container port (for example, `db:5432`), not the host-published port.
 
+## GitHub Environments
+
+In the GitHub repository, open **Settings > Environments**, create `staging` and `production`, and configure deployment-branch restrictions and any required reviewers for your organization. For each environment, under **Environment variables**, optionally add these CI-only variables:
+
+| Variable          | Default                        | Allowed values                                               |
+| ----------------- | ------------------------------ | ------------------------------------------------------------ |
+| `CI_LOG_LEVEL`    | `info`                         | `fatal`, `error`, `warn`, `info`, `debug`, `trace`, `silent` |
+| `CI_WEB_ORIGIN`   | `http://localhost:5175`        | Localhost or `127.0.0.1` HTTP URL only                       |
+| `CI_API_BASE_URL` | `http://localhost:3001/api/v1` | Localhost or `127.0.0.1` HTTP URL only                       |
+
+On pushes and manual runs, `develop` uses `staging` and `main` uses `production`. The environment-scoped job reads these variables to validate Compose configuration; it does not start services or deploy. Pull requests, including forks, do not access either environment. Migration tests always use a disposable CI database. No sensitive environment secret is required by these checks. If deployment is later implemented, store real credentials under **Environment secrets**, and reference them only from trusted, protected deployment jobs; do not put them in environment variables or PR jobs.
+
+Git ignores real `.env` and `.env.*` files, while the four sanitized root `.example` templates are intentionally tracked. To stop tracking a real environment file that was previously committed without deleting the local copy, run `git rm --cached -- path/to/.env`, then commit the removal. This does not erase Git history: rotate any credentials that were ever committed or shared, and follow your organization's incident process.
+
 ## TypeScript conventions
 
 - Keep application, test, shared package, Prisma config/seed, and runnable source in `.ts` or `.tsx`.

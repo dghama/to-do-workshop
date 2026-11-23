@@ -62,6 +62,37 @@ jobs:
           CI_ENVIRONMENT: ${{ steps.resolve.outputs.environment }}
         run: corepack pnpm run env -- "$CI_ENVIRONMENT" config
 
+  environment-config:
+    name: Validate GitHub Environment configuration
+    if: github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: ./.github/actions/setup-node-pnpm
+      - name: Validate environment-scoped CI settings
+        shell: bash
+        env:
+          CI_ENVIRONMENT: ${{ github.ref == 'refs/heads/main' && 'prod' || 'staging' }}
+          CI_LOG_LEVEL: ${{ vars.CI_LOG_LEVEL || 'info' }}
+          CI_WEB_ORIGIN: ${{ vars.CI_WEB_ORIGIN || 'http://localhost:5175' }}
+          CI_API_BASE_URL: ${{ vars.CI_API_BASE_URL || 'http://localhost:3001/api/v1' }}
+        run: |
+          case "$CI_LOG_LEVEL" in
+            fatal|error|warn|info|debug|trace|silent) ;;
+            *) echo "::error::Invalid CI_LOG_LEVEL"; exit 1 ;;
+          esac
+          for name in CI_WEB_ORIGIN CI_API_BASE_URL; do
+            value="${!name}"
+            if [[ ! "$value" =~ ^http://(localhost|127\.0\.0\.1)(:[0-9]{1,5})?(/[^[:space:]]*)?$ ]]; then
+              echo "::error::$name must be a local HTTP URL for isolated CI validation"
+              exit 1
+            fi
+          done
+          LOG_LEVEL="$CI_LOG_LEVEL" WEB_ORIGIN="$CI_WEB_ORIGIN" VITE_API_BASE_URL="$CI_API_BASE_URL" \
+            corepack pnpm run env -- "$CI_ENVIRONMENT" config
+
   lint:
     name: Lint and typecheck
     runs-on: ubuntu-latest

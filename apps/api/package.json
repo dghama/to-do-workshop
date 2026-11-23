@@ -1,0 +1,43 @@
+{
+  "name": "@todo/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "prisma generate && tsx watch src/server.ts",
+    "build": "prisma generate && tsc -p tsconfig.build.json",
+    "start": "node dist/src/server.js",
+    "typecheck": "prisma generate && tsc -p tsconfig.json --noEmit",
+    "test:unit": "prisma generate && node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --config jest.config.json --runInBand --testPathIgnorePatterns=integration",
+    "test:integration": "prisma generate && node --experimental-vm-modules ../../node_modules/jest/bin/jest.js --config jest.config.json --runInBand --runTestsByPath src/app.integration.test.ts src/modules/health/__tests__/health.routes.integration.test.ts",
+    "db:generate": "prisma generate",
+    "db:migrate": "prisma migrate deploy",
+    "db:seed": "prisma db seed"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "catalog:",
+    "@prisma/client": "catalog:",
+    "@todo/shared": "workspace:*",
+    "cors": "catalog:",
+    "dotenv": "catalog:",
+    "express": "catalog:",
+    "express-rate-limit": "catalog:",
+    "helmet": "catalog:",
+    "pg": "catalog:",
+    "pino": "catalog:",
+    "prisma": "catalog:",
+    "zod": "catalog:"
+  },
+  "devDependencies": {
+    "babel-jest": "catalog:",
+    "@types/cors": "catalog:",
+    "@types/express": "catalog:",
+    "@types/jest": "catalog:",
+    "@types/node": "catalog:",
+    "@types/pg": "catalog:",
+    "@types/supertest": "catalog:",
+    "pino-pretty": "catalog:",
+    "supertest": "catalog:",
+    "tsx": "catalog:"
+  }
+}

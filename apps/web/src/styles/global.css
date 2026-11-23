@@ -1,0 +1,142 @@
+@import './tokens.css';
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 20rem;
+  margin: 0;
+  color: var(--color-ink);
+  background: var(--color-page);
+  font-family: var(--font-body);
+  font-size: var(--font-size-body);
+  line-height: var(--line-height-body);
+}
+
+a {
+  color: var(--color-brand);
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid #86a8f4;
+  outline-offset: 3px;
+}
+
+button {
+  font: inherit;
+}
+
+.app-shell {
+  min-height: 100vh;
+}
+
+.site-header {
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+}
+
+.site-header__content,
+.page-content {
+  width: min(100% - 2 * var(--space-6), var(--content-width));
+  margin-inline: auto;
+}
+
+.site-header__content {
+  display: flex;
+  min-height: 4.5rem;
+  align-items: center;
+}
+
+.site-brand {
+  color: var(--color-ink);
+  font-size: 1.125rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.page-content {
+  padding-block: clamp(var(--space-8), 8vw, var(--space-12));
+}
+
+.welcome-panel {
+  max-width: 44rem;
+  padding: clamp(var(--space-6), 5vw, var(--space-12));
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-card);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.welcome-panel h1 {
+  margin-block: var(--space-2) var(--space-4);
+  font-size: var(--font-size-heading);
+  line-height: 1.15;
+}
+
+.welcome-panel p {
+  max-width: 38rem;
+  color: var(--color-muted);
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--color-brand);
+  font-size: 0.8125rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.status-message,
+.error-message {
+  padding: var(--space-4);
+  border-radius: 0.5rem;
+}
+
+.status-message {
+  color: var(--color-muted);
+  background: var(--color-surface);
+}
+
+.error-message {
+  color: var(--color-danger);
+  background: var(--color-danger-surface);
+}
+
+.button {
+  min-height: 2.75rem;
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid transparent;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.button--secondary {
+  border-color: var(--color-border);
+  color: var(--color-ink);
+  background: var(--color-surface);
+}
+
+.text-link {
+  display: inline-block;
+  margin-top: var(--space-4);
+}
+
+@media (min-width: 72rem) {
+  .page-content {
+    padding-block: var(--space-12);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

@@ -27,9 +27,7 @@ function printUsage(): void {
   console.log('  config   Validate the selected Compose configuration without starting services');
   console.log('');
   console.log('Environment files: .env, .env.test, .env.staging, and .env.production.');
-  console.log(
-    'Copy the corresponding .example file and provide secrets through a secure local store.',
-  );
+  console.log('Create the selected file locally and provide secrets through a secure local store.');
 }
 
 function runCompose(envFile: string, environment: Environment, args: string[]): void {
@@ -93,18 +91,13 @@ function main(argv: string[]): void {
   const action = actionArgument as Action;
   const envFile = environmentFiles[environment];
   const envPath = resolve(rootDirectory, envFile);
-  const examplePath = `${envPath}.example`;
-  const selectedEnvPath =
-    action === 'config' && !existsSync(envPath) && existsSync(examplePath) ? examplePath : envPath;
-
-  if (!existsSync(selectedEnvPath)) {
+  if (!existsSync(envPath)) {
     throw new Error(
-      `Missing ${envFile}. Copy ${envFile}.example to ${envFile} and set the environment values before continuing.`,
+      `Missing ${envFile}. Create it locally and set the environment values before continuing.`,
     );
   }
 
-  const compose = (...composeArgs: string[]) =>
-    runCompose(selectedEnvPath, environment, composeArgs);
+  const compose = (...composeArgs: string[]) => runCompose(envPath, environment, composeArgs);
 
   switch (action) {
     case 'start':

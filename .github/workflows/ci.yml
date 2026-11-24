@@ -19,10 +19,16 @@ jobs:
   resolve-environment:
     name: Resolve and validate branch CI environment
     runs-on: ubuntu-latest
+    env:
+      POSTGRES_DB: todo_ci
+      POSTGRES_USER: todo_ci
+      POSTGRES_PASSWORD: todo_ci
+      DATABASE_URL_DOCKER: postgresql://todo_ci:todo_ci@db:5432/todo_ci
+      WEB_ORIGIN: http://localhost:5175
+      VITE_API_BASE_URL: http://localhost:3001/api/v1
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ./.github/actions/setup-node-pnpm
-      - name: Select a sample environment for the target branch
+      - name: Select isolated configuration for the target branch
         id: resolve
         shell: bash
         env:
@@ -38,29 +44,22 @@ jobs:
 
           case "$target_branch" in
             develop)
-              ci_environment=staging
-              source_file=.env.staging.example
-              target_file=.env.staging
+              node_environment=staging
               ;;
             main)
-              ci_environment=prod
-              source_file=.env.production.example
-              target_file=.env.production
+              node_environment=production
               ;;
             *)
-              ci_environment=test
-              source_file=.env.test.example
-              target_file=.env.test
+              node_environment=test
               ;;
           esac
 
-          cp "$source_file" "$target_file"
-          echo "environment=$ci_environment" >> "$GITHUB_OUTPUT"
-          echo "Resolved CI environment: $ci_environment"
+          echo "environment=$node_environment" >> "$GITHUB_OUTPUT"
+          echo "Resolved CI environment: $node_environment"
       - name: Validate selected Compose environment
         env:
-          CI_ENVIRONMENT: ${{ steps.resolve.outputs.environment }}
-        run: corepack pnpm run env -- "$CI_ENVIRONMENT" config
+          NODE_ENV: ${{ steps.resolve.outputs.environment }}
+        run: docker compose --env-file /dev/null config --quiet
 
   environment-config:
     name: Validate GitHub Environment configuration
@@ -70,28 +69,63 @@ jobs:
       name: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-      - uses: ./.github/actions/setup-node-pnpm
       - name: Validate environment-scoped CI settings
         shell: bash
         env:
           CI_ENVIRONMENT: ${{ github.ref == 'refs/heads/main' && 'prod' || 'staging' }}
-          CI_LOG_LEVEL: ${{ vars.CI_LOG_LEVEL || 'info' }}
-          CI_WEB_ORIGIN: ${{ vars.CI_WEB_ORIGIN || 'http://localhost:5175' }}
-          CI_API_BASE_URL: ${{ vars.CI_API_BASE_URL || 'http://localhost:3001/api/v1' }}
+          NODE_ENV: ${{ vars.NODE_ENV }}
+          API_PORT: ${{ vars.API_PORT }}
+          WEB_PORT: ${{ vars.WEB_PORT }}
+          POSTGRES_PORT: ${{ vars.POSTGRES_PORT }}
+          POSTGRES_DB: ${{ vars.POSTGRES_DB }}
+          POSTGRES_USER: ${{ vars.POSTGRES_USER }}
+          POSTGRES_PASSWORD: ${{ github.ref == 'refs/heads/develop' && secrets.POSTGRES_PASSWORD || '' }}
+          LOG_LEVEL: ${{ vars.LOG_LEVEL }}
+          WEB_ORIGIN: ${{ vars.WEB_ORIGIN }}
+          DATABASE_URL: ${{ github.ref == 'refs/heads/develop' && secrets.DATABASE_URL || '' }}
+          DATABASE_URL_DOCKER: ${{ github.ref == 'refs/heads/develop' && secrets.DATABASE_URL_DOCKER || '' }}
+          VITE_API_BASE_URL: ${{ vars.VITE_API_BASE_URL }}
         run: |
-          case "$CI_LOG_LEVEL" in
+          if [[ "$CI_ENVIRONMENT" == staging ]]; then
+            for name in NODE_ENV API_PORT WEB_PORT POSTGRES_PORT POSTGRES_DB POSTGRES_USER POSTGRES_PASSWORD LOG_LEVEL WEB_ORIGIN DATABASE_URL DATABASE_URL_DOCKER VITE_API_BASE_URL; do
+              if [[ -z "${!name}" ]]; then
+                echo "::error::Missing staging environment setting: $name"
+                exit 1
+              fi
+            done
+            if [[ "$NODE_ENV" != staging ]]; then
+              echo "::error::The staging NODE_ENV must be staging"
+              exit 1
+            fi
+            node --input-type=module <<'NODE'
+          for (const name of ['DATABASE_URL', 'DATABASE_URL_DOCKER']) {
+            try {
+              const url = new URL(process.env[name]);
+              if (!['postgres:', 'postgresql:'].includes(url.protocol)) throw new Error();
+            } catch {
+              console.error(`::error::${name} must be a PostgreSQL URL`);
+              process.exit(1);
+            }
+          }
+          NODE
+          else
+            export NODE_ENV=production API_PORT=3001 WEB_PORT=5175 POSTGRES_PORT=5435
+            export POSTGRES_DB=todo_ci POSTGRES_USER=todo_ci POSTGRES_PASSWORD=todo_ci
+            export LOG_LEVEL=info WEB_ORIGIN=http://localhost:5175
+            export DATABASE_URL_DOCKER=postgresql://todo_ci:todo_ci@db:5432/todo_ci
+            export VITE_API_BASE_URL=http://localhost:3001/api/v1
+          fi
+          case "$LOG_LEVEL" in
             fatal|error|warn|info|debug|trace|silent) ;;
-            *) echo "::error::Invalid CI_LOG_LEVEL"; exit 1 ;;
+            *) echo "::error::Invalid LOG_LEVEL"; exit 1 ;;
           esac
-          for name in CI_WEB_ORIGIN CI_API_BASE_URL; do
-            value="${!name}"
-            if [[ ! "$value" =~ ^http://(localhost|127\.0\.0\.1)(:[0-9]{1,5})?(/[^[:space:]]*)?$ ]]; then
-              echo "::error::$name must be a local HTTP URL for isolated CI validation"
+          for name in API_PORT WEB_PORT POSTGRES_PORT; do
+            if [[ ! "${!name}" =~ ^[0-9]+$ ]] || (( 10#${!name} < 1 || 10#${!name} > 65535 )); then
+              echo "::error::Invalid port: $name"
               exit 1
             fi
           done
-          LOG_LEVEL="$CI_LOG_LEVEL" WEB_ORIGIN="$CI_WEB_ORIGIN" VITE_API_BASE_URL="$CI_API_BASE_URL" \
-            corepack pnpm run env -- "$CI_ENVIRONMENT" config
+          docker compose --env-file /dev/null config --quiet
 
   lint:
     name: Lint and typecheck

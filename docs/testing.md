@@ -5,7 +5,7 @@
 - **Unit:** Jest and React Testing Library cover the web shell and accessible UI states. API unit tests exercise request validation without a database.
 - **Integration:** Supertest verifies API health/readiness/error behavior against the Express application without opening a port.
 - **End-to-end:** Playwright checks the rendered browser shell and API liveness. Browser specs use page objects and named steps; API specs use typed API clients, fixtures, and response factories. The browser test intentionally does not assert task workflows.
-- **Database:** Prisma migrations and optional seed are explicit; database-backed behavior should use an isolated test database from `.env.test.example`.
+- **Database:** Prisma migrations and optional seed are explicit; database-backed behavior should use an isolated test database configured in an ignored `.env.test`.
 
 ## Playwright organization and reporting
 

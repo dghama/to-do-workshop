@@ -50,7 +50,7 @@ Playwright browser tests require a Chromium installation. Install it with `corep
 
 The GitHub Actions workflow maps `develop` to staging environment validation and `main` to production environment validation. CI never deploys the application or connects to real staging/production systems. Tests use isolated CI services, including a disposable PostgreSQL database for migration validation.
 
-For pushes and manual runs on `develop` or `main`, a job validates the corresponding GitHub Environment settings without starting services. Same-repository pull requests targeting `develop` validate `staging` too. Fork pull requests and pull requests targeting `main` do not access environment secrets. The job fails if the environment is not configured. See [development](docs/development.md#github-environments) for setup.
+For pushes and manual runs on `develop` or `main`, a job validates the corresponding GitHub Environment settings without starting services. Same-repository pull requests targeting `develop` validate `staging`; a same-repository `develop` → `main` pull request validates `production`. Fork pull requests and other pull requests targeting `main` do not access environment secrets. The job fails if the environment is not configured. See [development](docs/development.md#github-environments) for setup.
 
 The workflow also runs lint/typecheck and unit/integration tests, Semgrep and Gitleaks, and browser/API Playwright suites. It uploads generated Allure HTML as a downloadable `allure-report` artifact; it does not deploy reports to GitHub Pages. Permissions are read-only and no repository secrets are used for fork pull requests.
 

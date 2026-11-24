@@ -20,16 +20,17 @@ jobs:
     name: Validate GitHub Environment configuration
     if: >-
       (github.event_name != 'pull_request' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')) ||
-      (github.event_name == 'pull_request' && github.base_ref == 'develop' && github.event.pull_request.head.repo.full_name == github.repository)
+      (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository &&
+       (github.base_ref == 'develop' || (github.base_ref == 'main' && github.head_ref == 'develop')))
     runs-on: ubuntu-latest
     environment:
-      name: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+      name: ${{ (github.ref == 'refs/heads/main' || (github.event_name == 'pull_request' && github.base_ref == 'main')) && 'production' || 'staging' }}
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       - name: Validate environment-scoped CI settings
         shell: bash
         env:
-          CI_ENVIRONMENT: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+          CI_ENVIRONMENT: ${{ (github.ref == 'refs/heads/main' || (github.event_name == 'pull_request' && github.base_ref == 'main')) && 'production' || 'staging' }}
           NODE_ENV: ${{ vars.NODE_ENV }}
           API_PORT: ${{ vars.API_PORT }}
           WEB_PORT: ${{ vars.WEB_PORT }}

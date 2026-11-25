@@ -1,0 +1,48 @@
+schema_version: '1.0'
+
+preset:
+  id: 'constitution-alignment'
+  name: 'Constitution-Aligned Engineering'
+  version: '1.0.0'
+  description: 'Align Spec Kit artifacts with the repository Constitution and established engineering practices'
+
+requires:
+  speckit_version: '>=1.0.7'
+
+provides:
+  templates:
+    - type: 'command'
+      name: 'speckit.specify'
+      file: 'commands/specify.md'
+      description: 'Ground specifications in repository conventions and relevant quality requirements'
+      strategy: 'prepend'
+    - type: 'command'
+      name: 'speckit.plan'
+      file: 'commands/plan.md'
+      description: 'Inspect the repository and evaluate the design against its Constitution'
+      strategy: 'prepend'
+    - type: 'command'
+      name: 'speckit.tasks'
+      file: 'commands/tasks.md'
+      description: 'Generate actionable implementation and risk-appropriate verification tasks'
+      strategy: 'prepend'
+    - type: 'template'
+      name: 'spec-template'
+      file: 'templates/spec.md'
+      description: 'Capture quality and risk criteria in feature specifications'
+      strategy: 'append'
+    - type: 'template'
+      name: 'plan-template'
+      file: 'templates/plan.md'
+      description: 'Record repository evidence and a risk-based verification strategy in plans'
+      strategy: 'append'
+    - type: 'template'
+      name: 'tasks-template'
+      file: 'templates/tasks.md'
+      description: 'Apply Constitution-aligned, risk-based verification to generated tasks'
+      strategy: 'wrap'
+
+tags:
+  - 'constitution'
+  - 'engineering'
+  - 'quality'

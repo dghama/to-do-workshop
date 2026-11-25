@@ -56,6 +56,17 @@ The workflow also runs lint/typecheck and unit/integration tests, Semgrep and Gi
 
 The PR template suggests existing repository labels and provides an assignee field. Apply labels and assignees in GitHub's PR sidebar; templates can populate the description but cannot set those metadata fields.
 
+## Spec Kit presets
+
+Spec Kit customization sources live under [`presets/`](presets/). Install or
+update the reusable Constitution-alignment workflow using the instructions in
+[`presets/constitution-alignment/README.md`](presets/constitution-alignment/README.md).
+The Jira branching behavior is maintained separately in
+[`presets/jira-branching/README.md`](presets/jira-branching/README.md).
+Maintain preset sources there and use Specify to synchronize installed
+`.specify/presets` and composed command/skill outputs; do not edit generated
+copies directly.
+
 ## Docker
 
 Use one cross-platform TypeScript command for Docker environments on Windows and Ubuntu. Create the appropriate ignored `.env`, `.env.test`, `.env.staging`, or `.env.production` file first:

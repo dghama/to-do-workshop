@@ -15,6 +15,22 @@
         ]
       },
       "installed_at": "2026-11-23T20:06:50.905865+00:00"
+    },
+    "constitution-alignment": {
+      "version": "1.0.0",
+      "source": "local",
+      "manifest_hash": "sha256:90326642f72d9edb0fe8e26f073def40856e436517eae80575536ce312be566f",
+      "enabled": true,
+      "priority": 10,
+      "registered_commands": {},
+      "registered_skills": {
+        "copilot": [
+          "speckit-specify",
+          "speckit-plan",
+          "speckit-tasks"
+        ]
+      },
+      "installed_at": "2026-11-25T15:04:00.244506+00:00"
     }
   }
 }

@@ -73,35 +73,29 @@ specification steps.
    variables set by a child process survive into later tool calls.
 
 
-## Customized specification workflow
+## Outcome-focused specification
 
-These instructions override conflicting generation instructions in the standard
-command below, but retain its hooks, feature directory resolution,
-feature.json persistence, and completion reporting.
+Use Spec Kit's standard feature-context resolution and hooks. Generate the
+feature specification at the resolved feature's `spec.md`; do not move the
+default specification into a separate documentation directory.
+Resolve `spec-template` with the standard template resolver and write the
+composed template directly to that `spec.md`. The use-case fields supplement
+the core requirements and acceptance-criteria sections; do not create a second
+use-case document.
 
-- Generate the default specification directly in `FEATURE_DIR/spec.md`.
-- Resolve `spec-template` with the project's standard template resolver and
-  write the resolved template directly to `FEATURE_DIR/spec.md`.
-- Fill the template from evidence and answers from the Product Owner. Never
-  invent facts, requirements, UI links, Jira stories, business rules, or
-  guarantees.
-- Preserve existing `spec.md` files unless the user explicitly requests an
-  update. On a new feature, do not overwrite an existing specification.
-- Use the Jira issue and feature slug for branch and feature-directory naming
-  when the Jira naming preset is installed. Keep the existing feature directory
-  when updating an existing specification.
-- Create specifications with status `Draft`. Allowed statuses are Draft,
-  Reviewed, Approved, Implemented, Tested, Done, and Obsolete. Do not claim
-  approval or change status without explicit authorization.
-- Place unsupported assumptions and unresolved decisions in `Open Questions`
-  addressed to the Product Owner. Ask targeted questions where possible.
-- Open Questions must be empty before setting status to `Approved`.
-- Treat `FEATURE_DIR/spec.md` as `SPEC_FILE` for writing, clarification,
-  quality validation, planning, task generation, and downstream commands.
-- Before writing, execute the mandatory hooks and verify the branch, feature
-  directory, and existing spec. Stop on missing hooks, hook failures, or
-  mismatches. Never silently edit on `main`.
-- Report the specification path and any outstanding Product Owner questions.
+Describe observable user or system outcomes. Organize requirements around
+relevant user scenarios or use cases, with testable acceptance criteria,
+important edge cases, and explicit scope. Distinguish known facts from
+assumptions and unresolved decisions. Do not invent requirements or choose
+implementation details that belong in the plan.
+
+Preserve an existing specification unless the user explicitly requests an
+update. Do not impose a role, issue tracker, branch naming scheme, identifier
+format, or technology stack unless the user or another installed customization
+provides it.
+Do not claim approval or change a specification's status without explicit
+authorization. An Approved specification must not retain unresolved Open
+Questions.
 
 
 

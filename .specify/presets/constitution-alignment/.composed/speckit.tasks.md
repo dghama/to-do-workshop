@@ -26,43 +26,34 @@ to acceptance criteria, use real repository paths, and identify dependencies.
 Name documented validation commands when available; state a concrete reason
 when a relevant check cannot be run.
 
+When generating tasks, disregard later core-command or template examples that
+describe tests as optional. Include verification tasks for behavior, contract,
+configuration, and data changes according to the policy above; do not impose
+test-first development unless the project Constitution or feature requires it.
+
 
 ## Feature specification is authoritative
 
-Use the feature-context resolution and prerequisites supplied by the core
-command and active integration. Read the complete resolved feature
-specification in `FEATURE_DIR/spec.md` and treat it as the source of product
-intent, scope, priorities, assumptions, and open questions. If it is missing or
-ambiguous, stop and report that rather than inferring requirements.
+Read the complete resolved feature specification in `FEATURE_DIR/spec.md` and
+treat it as the source of product intent, scope, priorities, assumptions, and
+open questions. If it is missing or ambiguous, stop and report that rather than
+inferring requirements. Follow the core command's read/write contract; do not
+hard-code a repository helper, shell, branch scheme, issue tracker, or
+feature-state mechanism.
 
-Do not hard-code a repository helper, shell, branch scheme, issue tracker, or
-feature-state mechanism. Follow the core command's read/write contract, and do
-not move feature requirements into a separate document.
+## Trace tasks to requirements
 
-### Plan
+For each task that implements or verifies behavior, include the relevant
+functional requirement, success criterion, or user-story reference in its
+description (for example, `FR-001`, `SC-002`, or `US1`). A shared task may
+reference multiple items. Keep the core task format and use repository paths.
 
-Connect technical decisions to user outcomes. Record trade-offs and unresolved
-technical questions separately from product decisions.
-
-### Tasks
-
-Group work by user scenario where that produces a coherent, demonstrable
-outcome. Preserve scenario priorities and follow dependencies from the
-effective task template and any project quality policy.
-
-### Analyze
-
-Treat the specification as authority for product outcomes and the plan as
-authority for technical decisions. Report when a design choice changes user
-behavior without support in the specification; remain read-only as required by
-the core command.
-
-### Implement
-
-If work reveals a conflict between artifacts or behavior requiring an
-unresolved product decision, pause that portion and ask rather than choosing
-silently. Report material deviations and verification evidence without
-rewriting requirements or design artifacts.
+Every in-scope buildable requirement must have at least one implementation or
+verification task, as appropriate. Do not count keyword similarity alone as
+evidence of coverage. Include only technical areas and test layers justified
+by the plan and repository conventions. Represent unresolved product
+decisions as explicit dependencies or blockers rather than implementing an
+assumption.
 
 
 

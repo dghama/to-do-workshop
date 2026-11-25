@@ -59,3 +59,26 @@ here.
 ### Open Questions
 
 - <Unresolved decision or missing evidence>
+
+## Requirement Sources and Traceability
+
+Include this section when source requirements or supporting materials are
+available. Reference only materials actually provided or inspected, and map
+each relevant source identifier or link to the resulting requirement or
+scenario. Do not imply access to an external system that was not available.
+
+| Source reference | Related requirement or scenario |
+| --- | --- |
+| <Source ID or link> | <FR-, SC-, or user scenario reference> |
+
+## User Interface States
+
+Include this section only for user-facing interface changes. Describe the
+observable behavior for each applicable state and link it to the relevant
+scenario and acceptance criteria. Omit states that do not apply.
+
+- **Loading:** <What the user sees while work is in progress>
+- **Empty:** <What the user sees when there is no content>
+- **Success:** <How successful completion is communicated>
+- **Error:** <How errors are identified and recovered from>
+- **Disabled:** <When controls are unavailable and how that is communicated>

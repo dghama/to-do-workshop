@@ -8,9 +8,10 @@ specify preset add --dev .\presets\sdd-customization
 
 The preset adds integration-neutral guidance to the Spec Kit Constitution,
 Specify, Clarify, Plan, Tasks, Analyze, Implement, Checklist, and Converge
-commands. The preset appends an optional use-case flow section to the core spec
-template; the core retains its requirements and acceptance-criteria structure.
-The composed feature specification continues to be generated in the resolved
+commands. It appends optional use-case, source-traceability, and applicable UI
+state sections to the core spec template, and a relevant-area impact assessment
+to the plan template. Core requirements and acceptance criteria remain intact;
+the composed feature specification continues to be generated in the resolved
 feature's `spec.md`.
 
 The template is named `spec-template.md` and adds use-case details without a
@@ -21,13 +22,13 @@ identifier, or a specific stakeholder role.
 
 | Phase | SDD customization | Separate responsibility |
 | --- | --- | --- |
-| Constitution | Keep updates about durable, evidence-based governance | Project-specific principles belong to the consuming repository |
-| Specify | Elicit outcomes, use cases, and testable acceptance criteria | Repository quality policies and naming rules stay in their own presets |
-| Clarify | Ask focused questions about material ambiguity and readiness | Decisions belong to the feature's stakeholders |
-| Plan | Connect technical decisions to user outcomes and record trade-offs | Repository and Constitution checks remain in Constitution-alignment |
-| Tasks | Order work around user-scenario priorities | Dependency and verification rules remain with the effective task template |
-| Analyze | Separate product intent from technical decisions | The core analysis command remains read-only |
-| Implement | Pause at unresolved product decisions and report deviations | Branching and lifecycle hooks remain with Git/Jira integrations |
+| Constitution | Keep updates focused on durable, evidence-based governance | Project-specific principles belong to the consuming repository |
+| Specify | Elicit outcomes, use cases, source traceability, and relevant UI states | Repository quality policies and naming rules stay in their own presets |
+| Clarify | Inspect available sources, preserve decisions, and report blocking ambiguity | External Jira access remains integration-dependent |
+| Plan | Connect design and area-specific impact to requirements and repository evidence | Repository and Constitution checks remain in Constitution-alignment |
+| Tasks | Map implementation and verification work to stable requirement references | Dependency and verification rules remain with the effective task policy |
+| Analyze | Verify explicit requirement coverage and preserve read-only behavior | The core analysis command owns its report structure and severity model |
+| Implement | Stay within approved scope, pause for product decisions, report deviations | Branching and lifecycle hooks remain with Git/Jira integrations |
 
 Constitution-alignment remains responsible for repository-grounded quality
 criteria and verification policy. Jira-branching remains responsible for Jira
@@ -42,12 +43,27 @@ with the selected integration's core commands and renders them as skills when
 that integration supports skills. Do not edit the installed copy or generated
 skills directly.
 
+Plan, Tasks, Analyze, and Implement each use a focused command contribution
+that includes the shared feature-authority rule and only that phase's specific
+guidance. Checklist and Converge share `commands/feature-context.md`.
+
 The source preset is separate from the installed copy. To refresh after editing
 this source, run:
 
 ```powershell
 specify preset update sdd-customization --dev .\presets\sdd-customization
 ```
+
+Validate the source manifest and all referenced contribution paths with:
+
+```powershell
+python .\scripts\validate-sdd-preset.py
+```
+
+Then update the installed preset and inspect the resolved command and template
+composition. The validation script requires PyYAML, which is also used by the
+Spec Kit CLI. If `python` resolves to an unusable Microsoft Store alias, invoke
+the script with a working Python executable that has PyYAML installed.
 
 To migrate an existing installation of the former `spec-customization` preset,
 remove that preset and install this one:

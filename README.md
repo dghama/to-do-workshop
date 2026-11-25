@@ -61,6 +61,8 @@ The PR template suggests existing repository labels and provides an assignee fie
 Spec Kit customization sources live under [`presets/`](presets/). Install or
 update the reusable Constitution-alignment workflow using the instructions in
 [`presets/constitution-alignment/README.md`](presets/constitution-alignment/README.md).
+The reusable SDD lifecycle customization is documented in
+[`presets/sdd-customization/README.md`](presets/sdd-customization/README.md).
 The Jira branching behavior is maintained separately in
 [`presets/jira-branching/README.md`](presets/jira-branching/README.md).
 Maintain preset sources there and use Specify to synchronize installed

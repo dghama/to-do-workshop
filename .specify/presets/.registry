@@ -16,26 +16,10 @@
       },
       "installed_at": "2026-11-23T20:06:50.905865+00:00"
     },
-    "constitution-alignment": {
-      "version": "1.0.0",
-      "source": "local",
-      "manifest_hash": "sha256:90326642f72d9edb0fe8e26f073def40856e436517eae80575536ce312be566f",
-      "enabled": true,
-      "priority": 10,
-      "registered_commands": {},
-      "registered_skills": {
-        "copilot": [
-          "speckit-specify",
-          "speckit-plan",
-          "speckit-tasks"
-        ]
-      },
-      "installed_at": "2026-11-25T15:04:00.244506+00:00"
-    },
     "sdd-customization": {
-      "version": "1.0.0",
+      "version": "1.1.0",
       "source": "local",
-      "manifest_hash": "sha256:4841e4f5b8d45fb25f3b624d0ab5d6a658610d026549c0dbaf84ff30c0517a6a",
+      "manifest_hash": "sha256:7dbe73a2ca7632cd44364cd40ab969aacd5b58cdee1fa41fbb1db54b552dec36",
       "enabled": true,
       "priority": 10,
       "registered_commands": {},
@@ -52,7 +36,23 @@
           "speckit-converge"
         ]
       },
-      "installed_at": "2026-11-25T17:31:37.933201+00:00"
+      "installed_at": "2026-11-25T18:23:50.964549+00:00"
+    },
+    "constitution-alignment": {
+      "version": "1.0.1",
+      "source": "local",
+      "manifest_hash": "sha256:5786bec5f804ae9aac281f2ea71f9163d542753fb3fc7f8cb07ad2db33473989",
+      "enabled": true,
+      "priority": 10,
+      "registered_commands": {},
+      "registered_skills": {
+        "copilot": [
+          "speckit-specify",
+          "speckit-plan",
+          "speckit-tasks"
+        ]
+      },
+      "installed_at": "2026-11-25T18:23:56.495440+00:00"
     }
   }
 }

@@ -9,40 +9,24 @@ scripts:
 
 ## Feature specification is authoritative
 
-Use the feature-context resolution and prerequisites supplied by the core
-command and active integration. Read the complete resolved feature
-specification in `FEATURE_DIR/spec.md` and treat it as the source of product
-intent, scope, priorities, assumptions, and open questions. If it is missing or
-ambiguous, stop and report that rather than inferring requirements.
+Read the complete resolved feature specification in `FEATURE_DIR/spec.md` and
+treat it as the source of product intent, scope, priorities, assumptions, and
+open questions. If it is missing or ambiguous, stop and report that rather than
+inferring requirements. Follow the core command's read/write contract; do not
+hard-code a repository helper, shell, branch scheme, issue tracker, or
+feature-state mechanism.
 
-Do not hard-code a repository helper, shell, branch scheme, issue tracker, or
-feature-state mechanism. Follow the core command's read/write contract, and do
-not move feature requirements into a separate document.
+## Implement only approved work
 
-### Plan
+Use the approved tasks and plan to define implementation scope. Do not add
+unrelated setup, ignore-file, dependency, or cleanup changes merely because a
+generic workflow suggests them. If a necessary prerequisite is outside the
+approved tasks, explain why and ask before expanding scope.
 
-Connect technical decisions to user outcomes. Record trade-offs and unresolved
-technical questions separately from product decisions.
-
-### Tasks
-
-Group work by user scenario where that produces a coherent, demonstrable
-outcome. Preserve scenario priorities and follow dependencies from the
-effective task template and any project quality policy.
-
-### Analyze
-
-Treat the specification as authority for product outcomes and the plan as
-authority for technical decisions. Report when a design choice changes user
-behavior without support in the specification; remain read-only as required by
-the core command.
-
-### Implement
-
-If work reveals a conflict between artifacts or behavior requiring an
-unresolved product decision, pause that portion and ask rather than choosing
-silently. Report material deviations and verification evidence without
-rewriting requirements or design artifacts.
+Pause work that depends on an unresolved product decision. Follow repository
+conventions and applicable quality policies, run relevant documented
+validation, and report exact results and material deviations. Do not mark a
+task complete unless its work and required verification are complete.
 
 
 

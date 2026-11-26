@@ -1,0 +1,133 @@
+openapi: 3.1.0
+info:
+  title: To-Do Workshop Task Creation API
+  version: 1.0.0
+paths:
+  /api/v1/tasks:
+    post:
+      summary: Create a task
+      operationId: createTask
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateTaskRequest'
+      responses:
+        '201':
+          description: Task created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTaskSuccess'
+        '400':
+          description: Invalid task data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTaskError'
+        '429':
+          description: Rate limited
+        '500':
+          description: Task could not be saved
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateTaskError'
+components:
+  schemas:
+    CreateTaskRequest:
+      type: object
+      required:
+        - title
+      properties:
+        title:
+          type: string
+          minLength: 1
+          description: A nonblank task title
+        description:
+          type:
+            - string
+            - 'null'
+        scheduledDate:
+          type:
+            - string
+            - 'null'
+          pattern: '^\d{4}-\d{2}-\d{2}$'
+        startTime:
+          type:
+            - string
+            - 'null'
+          pattern: '^([01]\d|2[0-3]):[0-5]\d$'
+        endTime:
+          type:
+            - string
+            - 'null'
+          pattern: '^([01]\d|2[0-3]):[0-5]\d$'
+    Task:
+      type: object
+      required:
+        - id
+        - title
+        - completed
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        title:
+          type: string
+        description:
+          type:
+            - string
+            - 'null'
+        scheduledDate:
+          type:
+            - string
+            - 'null'
+        startTime:
+          type:
+            - string
+            - 'null'
+        endTime:
+          type:
+            - string
+            - 'null'
+        completed:
+          type: boolean
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    CreateTaskSuccess:
+      type: object
+      required:
+        - data
+      properties:
+        data:
+          $ref: '#/components/schemas/Task'
+    CreateTaskError:
+      type: object
+      required:
+        - error
+      properties:
+        error:
+          type: object
+          required:
+            - code
+            - message
+            - requestId
+          properties:
+            code:
+              type: string
+            message:
+              type: string
+            requestId:
+              type: string
+            details:
+              type: array
+              items:
+                type: object

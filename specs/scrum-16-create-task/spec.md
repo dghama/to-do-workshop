@@ -250,7 +250,7 @@ Classification:
 | --- | --- | --- | --- |
 | A-001 | Start-only and end-only time combinations are valid. | Jira states that start and end times are independently optional. | Confirmed |
 | A-002 | A scheduled date without times and an unscheduled task are both valid. | Jira explicitly describes these as valid forms. | Confirmed |
-| A-003 | Save success and failure can be distinguished clearly enough to prevent false success. | Jira AC3 requires success visibility and actionable failure feedback. | Unconfirmed |
+| A-003 | Save success and failure can be distinguished clearly enough to prevent false success. | Jira AC3 requires visible success and actionable failure without false success. | Confirmed |
 
 ### 9.2 Open Questions
 

@@ -5,28 +5,10 @@ description: Execute the implementation planning workflow using the plan templat
 compatibility: Requires spec-kit project structure with .specify/ directory
 metadata:
   author: github-spec-kit
-  source: preset:constitution-alignment
+  source: preset:sdd-customization
 ---
 
 # Speckit Plan Skill
-
-## Repository-grounded planning
-
-Before choosing an approach, inspect the actual repository: relevant module
-boundaries and exports, existing implementations, package/configuration files,
-architecture and development documentation, test conventions, and documented
-quality gates. Load `.specify/memory/constitution.md` when present. Do not
-assume a stack, path, test runner, dependency, deployment target, or capability
-that repository evidence does not support.
-
-Use the plan template's repository-alignment section to record concrete paths
-and evidence, affected modules and public contracts, dependency direction, and
-the smallest compatible design. Evaluate the design against each applicable
-Constitution requirement before and after design; surface violations rather
-than diluting requirements. Complete the template's verification strategy
-using repository evidence, cite exact existing commands when discoverable, and
-distinguish unavailable checks from checks that will be run.
-
 
 ## Feature specification is authoritative
 
@@ -50,6 +32,24 @@ unknowns, alternatives, trade-offs, compatibility impacts, and the repository
 evidence that supports the selected design in the appropriate plan sections.
 Apply the consuming repository's Constitution and quality policies; do not
 repeat or weaken them.
+
+
+## Repository-grounded planning
+
+Before choosing an approach, inspect the actual repository: relevant module
+boundaries and exports, existing implementations, package/configuration files,
+architecture and development documentation, test conventions, and documented
+quality gates. Load `.specify/memory/constitution.md` when present. Do not
+assume a stack, path, test runner, dependency, deployment target, or capability
+that repository evidence does not support.
+
+Use the plan template's repository-alignment section to record concrete paths
+and evidence, affected modules and public contracts, dependency direction, and
+the smallest compatible design. Evaluate the design against each applicable
+Constitution requirement before and after design; surface violations rather
+than diluting requirements. Complete the template's verification strategy
+using repository evidence, cite exact existing commands when discoverable, and
+distinguish unavailable checks from checks that will be run.
 
 
 

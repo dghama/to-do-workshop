@@ -1,84 +1,298 @@
-## Use Case Details
+# Feature Specification: [Feature Name]
 
-Complete these fields when they add useful detail to the scenarios and
-acceptance criteria above. Omit fields that do not apply. Keep testable
-acceptance criteria with their related user scenario; do not duplicate them
-here.
+**Feature ID**: [Jira Issue ID]
+**Feature Branch**: [Branch Name]
+**Parent Issue**: [Parent Jira ID or N/A]
+**Created**: [YYYY-MM-DD]
+**Status**: Draft
+**Source**: [Jira URL]
 
-**Use Case ID:** <Optional project-defined identifier>
+---
 
-**Use Case Name:** <Goal name>
+## 1. Feature Context
 
-**Primary Actor(s):** <Role, user, or system>
+### 1.1 Objective
 
-**Goal:** <Observable outcome and why it matters>
+Describe the business objective and the problem this feature solves.
 
-**Status:** Draft
+### 1.2 Original User Story
 
-**Related Work Items:** <Optional issue or requirement references>
+Preserve the original Jira User Story without changing its meaning.
 
-**UI or Supporting References:** <Optional design or documentation links>
+As a [user role], I want [capability], so that [business value].
 
-### Preconditions
+### 1.3 Scope
 
-- <State that must be true before the use case begins>
+**In Scope**
 
-### Main Success Scenario
+- [Capability included in this feature]
 
-1. <Actor action or system response>
+**Out of Scope**
 
-### Alternative or Error Flows
+- [Capability explicitly excluded or owned by another feature]
 
-#### A1: <Flow name>
+### 1.4 Related Work Items
 
-**Trigger:** <Condition and related step>
+| Jira ID | Relationship | Description |
+| --- | --- | --- |
+| [ID] | Depends on / Blocks / Relates to / Parent | [Description] |
 
-**Flow:**
+---
 
-1. <Step that diverges>
-2. <Continuation or end state>
+## 2. User Scenarios & Testing
 
-### Postconditions
+Describe the scenarios necessary to validate the feature.
 
-#### Success
+### US-01: [Scenario Name]
 
-- <Observable system state after success>
+**Priority**: [Jira priority or Not specified]
 
-#### Failure
+**Description**: [User goal and expected outcome]
 
-- <What remains true if the use case fails>
+**Independent Test**: [How this scenario can be validated independently]
 
-### Business Rules
+**Acceptance Scenarios**
 
-- <Rule that constrains the behavior>
+- **Given** [initial context]
+- **When** [user action]
+- **Then** [expected observable outcome]
 
-### Out of Scope
+### Alternative Scenarios
 
-- <Behavior the feature must not implement>
+- [Alternative behavior]
 
-### Open Questions
+### Error Scenarios
 
-- <Unresolved decision or missing evidence>
+- [Invalid input]
+- [System failure]
+- [Recovery behavior]
 
-## Requirement Sources and Traceability
+### Edge Cases
 
-Include this section when source requirements or supporting materials are
-available. Reference only materials actually provided or inspected, and map
-each relevant source identifier or link to the resulting requirement or
-scenario. Do not imply access to an external system that was not available.
+- [Boundary conditions]
+- [Empty or missing values]
+- [Unexpected combinations]
 
-| Source reference | Related requirement or scenario |
+---
+
+## 3. Functional Requirements
+
+Each requirement must be independently testable and traceable.
+
+| ID | Requirement | Source | Classification |
+| --- | --- | --- | --- |
+| FR-001 | The system MUST [behavior] | Jira AC1 | Explicit |
+| FR-002 | The system MUST [behavior] | Jira AC2 | Explicit |
+
+Classification:
+
+- Explicit: Directly specified in Jira.
+- Inferred: Necessary interpretation of an explicit requirement.
+- Proposed: Additional recommendation requiring approval.
+
+Rules:
+
+- Use MUST for mandatory behavior.
+- Use SHOULD only for agreed recommendations.
+- Avoid implementation-specific details.
+- Do not invent requirements.
+
+---
+
+## 4. Business Rules & Constraints
+
+### 4.1 Business Rules
+
+| ID | Rule | Source | Classification |
+| --- | --- | --- | --- |
+| BR-001 | [Business rule] | [Jira reference] | Explicit |
+
+### 4.2 Constraints
+
+- [Business constraints]
+- [Existing product constraints]
+- [Compatibility requirements]
+
+---
+
+## 5. Data Requirements
+
+Include this section when the feature introduces or modifies data.
+
+### 5.1 Entities
+
+**Entity: [Name]**
+
+| Attribute | Description | Required | Constraints |
+| --- | --- | --- | --- |
+| [Attribute] | [Description] | Yes/No | [Constraint] |
+
+### 5.2 Data Validation
+
+- [Required fields]
+- [Format constraints]
+- [Boundary conditions]
+- [Data integrity rules]
+
+Do not prescribe database schemas or persistence technologies here unless explicitly required.
+
+---
+
+## 6. User Interface & Interaction Requirements
+
+Include when the feature has a UI impact.
+
+### 6.1 UI Components
+
+- [Screens, forms, dialogs, components]
+
+### 6.2 UI States
+
+| State | Expected Behavior |
 | --- | --- |
-| <Source ID or link> | <FR-, SC-, or user scenario reference> |
+| Initial | [Expected state] |
+| Loading | [Expected state] |
+| Success | [Expected state] |
+| Empty | [Expected state] |
+| Error | [Expected state] |
+| Disabled | [Expected state] |
 
-## User Interface States
+### 6.3 Interaction Rules
 
-Include this section only for user-facing interface changes. Describe the
-observable behavior for each applicable state and link it to the relevant
-scenario and acceptance criteria. Omit states that do not apply.
+- [Keyboard interactions]
+- [Navigation]
+- [Form behavior]
+- [Responsive behavior]
 
-- **Loading:** <What the user sees while work is in progress>
-- **Empty:** <What the user sees when there is no content>
-- **Success:** <How successful completion is communicated>
-- **Error:** <How errors are identified and recovered from>
-- **Disabled:** <When controls are unavailable and how that is communicated>
+### 6.4 Accessibility
+
+- Semantic structure and accessible names.
+- Keyboard operability.
+- Visible focus indicators.
+- Accessible validation and error feedback.
+- Appropriate screen-reader announcements.
+- Sufficient color contrast.
+
+Apply relevant accessibility requirements according to the project's accessibility standard.
+
+---
+
+## 7. Quality Requirements
+
+Include only quality attributes relevant to this feature.
+
+| Category | Requirement | Source |
+| --- | --- | --- |
+| Performance | [Expected performance] | [Source] |
+| Security | [Security requirement] | [Source] |
+| Reliability | [Reliability requirement] | [Source] |
+| Accessibility | [Accessibility requirement] | [Source] |
+| Compatibility | [Compatibility requirement] | [Source] |
+
+Do not invent numerical targets or compliance requirements.
+
+---
+
+## 8. Success Criteria
+
+Define observable and measurable outcomes.
+
+| ID | Criterion | Validation Method |
+| --- | --- | --- |
+| SC-001 | [Expected measurable outcome] | [Test or measurement] |
+
+Success criteria must be linked to business objectives or explicitly approved quality targets.
+
+---
+
+## 9. Assumptions & Open Questions
+
+### 9.1 Assumptions
+
+| ID | Assumption | Rationale | Validation Status |
+| --- | --- | --- | --- |
+| A-001 | [Assumption] | [Reason] | Unconfirmed |
+
+Never silently convert an assumption into a confirmed business rule.
+
+### 9.2 Open Questions
+
+| ID | Question | Impact | Owner |
+| --- | --- | --- | --- |
+| Q-001 | [Unresolved question] | [Impact] | Product / Technical |
+
+### 9.3 Clarifications
+
+Record decisions made during the clarification phase and update the affected requirements.
+
+---
+
+## 10. Use Case Details
+
+Include only when the feature requires detailed workflow documentation.
+
+### UC-001: [Use Case Name]
+
+**Primary Actor**: [Actor]
+
+**Goal**: [Expected outcome]
+
+**Preconditions**
+
+- [Precondition]
+
+**Main Success Scenario**
+
+1. [Step]
+2. [Step]
+
+**Alternative Flows**
+
+- [Alternative flow]
+
+**Exception Flows**
+
+- [Failure and recovery]
+
+**Postconditions**
+
+- Success: [Expected result]
+- Failure: [Expected result]
+
+---
+
+## 11. Requirement Traceability
+
+| Jira Source | Scenario | Requirement | Validation |
+| --- | --- | --- | --- |
+| Jira AC1 | US-01 | FR-001 | Test scenario |
+| Jira AC2 | US-01 | FR-002 | Test scenario |
+
+Every functional requirement must have a traceable source or an explicit inferred/proposed classification.
+
+---
+
+## 12. Specification Readiness
+
+**Status**: [READY FOR CLARIFICATION / READY FOR PLANNING / BLOCKED]
+
+### Validation Checklist
+
+- [ ] Original Jira User Story preserved.
+- [ ] Scope and out-of-scope identified.
+- [ ] Acceptance criteria covered.
+- [ ] Functional requirements are testable.
+- [ ] Requirements have source traceability.
+- [ ] Inferred and proposed requirements are identified.
+- [ ] Contradictions are documented.
+- [ ] Open questions are recorded.
+- [ ] Relevant quality requirements are covered.
+- [ ] No unsupported technical implementation decisions.
+
+**Blocking Issues**
+
+- [List unresolved blockers or None]
+
+**Review Notes**
+
+- [Additional observations]

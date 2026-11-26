@@ -3,20 +3,21 @@
 Install this reusable preset from the repository root:
 
 ```powershell
-specify preset add --dev .\presets\sdd-customization
+specify preset add --dev .\presets\sdd-customization --priority 9
 ```
 
 The preset adds integration-neutral guidance to the Spec Kit Constitution,
 Specify, Clarify, Plan, Tasks, Analyze, Implement, Checklist, and Converge
-commands. It appends optional use-case, source-traceability, and applicable UI
-state sections to the core spec template, and a relevant-area impact assessment
-to the plan template. Core requirements and acceptance criteria remain intact;
-the composed feature specification continues to be generated in the resolved
-feature's `spec.md`.
+commands. It replaces the core specification template with the numbered,
+Jira-traceable specification structure and appends a relevant-area impact
+assessment to the plan template. The specification continues to be generated
+in the resolved feature's `spec.md`; existing specifications are not rewritten.
+Missing Jira information must be identified rather than invented.
 
-The template is named `spec-template.md` and adds use-case details without a
-second output file. Its fields do not assume a Jira project, a fixed use-case
-identifier, or a specific stakeholder role.
+Priority 9 makes the replacement win over the default-priority
+Constitution-alignment specification layer. Higher-priority project overrides
+or other presets can still change the resolved output. Repository quality
+guidance continues to apply through the Constitution and command contributions.
 
 ## Lifecycle responsibilities
 
@@ -51,7 +52,7 @@ The source preset is separate from the installed copy. To refresh after editing
 this source, run:
 
 ```powershell
-specify preset update sdd-customization --dev .\presets\sdd-customization
+specify preset update sdd-customization --dev .\presets\sdd-customization --priority 9
 ```
 
 Validate the source manifest and all referenced contribution paths with:
@@ -64,13 +65,17 @@ Then update the installed preset and inspect the resolved command and template
 composition. The validation script requires PyYAML, which is also used by the
 Spec Kit CLI. If `python` resolves to an unusable Microsoft Store alias, invoke
 the script with a working Python executable that has PyYAML installed.
+The PowerShell template resolver also needs a working Python with PyYAML. If
+`python3` is an unusable Microsoft Store alias, set
+`$env:SPECKIT_PYTHON_EXECUTABLE = (Get-Command python).Source` before running
+the resolver or a Spec Kit command that uses it.
 
 To migrate an existing installation of the former `spec-customization` preset,
 remove that preset and install this one:
 
 ```powershell
 specify preset remove spec-customization
-specify preset add --dev .\presets\sdd-customization
+specify preset add --dev .\presets\sdd-customization --priority 9
 ```
 
 Preset removal and update regenerate installed and integration artifacts.

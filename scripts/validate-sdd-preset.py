@@ -43,7 +43,10 @@ def main():
         ("command", "speckit.checklist"): {"commands/feature-context.md"},
         ("command", "speckit.converge"): {"commands/feature-context.md"},
     }
-    required_strategies = {"template": "append", "command": "prepend"}
+    required_strategies = {
+        ("template", "spec-template"): "replace",
+        ("template", "plan-template"): "append",
+    }
     found_sources = {key: set() for key in expected_sources}
     common_context_targets = set()
 
@@ -60,7 +63,7 @@ def main():
             for value in (kind, name, strategy, relative_path)
         ):
             fail("each contribution needs non-empty type, name, strategy, and file fields")
-        if strategy not in {"append", "prepend", "wrap"}:
+        if strategy not in {"replace", "append", "prepend", "wrap"}:
             fail("unsupported strategy " + repr(strategy) + " for " + name)
 
         source_path = (PRESET_DIR / relative_path).resolve()
@@ -80,7 +83,10 @@ def main():
                 + "; expected "
                 + ", ".join(sorted(expected_source_set))
             )
-        if kind in required_strategies and strategy != required_strategies[kind]:
+        required_strategy = required_strategies.get((kind, name))
+        if kind == "command":
+            required_strategy = "prepend"
+        if required_strategy is not None and strategy != required_strategy:
             fail("unexpected strategy for " + name + ": " + strategy)
 
         if (kind, name) in found_sources:

@@ -20,6 +20,11 @@ without conflicting evidence. Distinguish product decisions, which require
 stakeholder answers, from technical uncertainties, which belong in
 repository-grounded planning unless they change the required outcome.
 
+For specifications using the SDD template, record accepted decisions in the
+existing `### 9.3 Clarifications` section, with dated session subsections,
+instead of creating a separate `## Clarifications` section. Update the
+associated requirements and readiness status as appropriate.
+
 For each unresolved question, assess whether it blocks planning because its
 answer could change user-visible behavior, scope, or acceptance criteria.
 Report blocking and non-blocking open questions separately. Do not represent a

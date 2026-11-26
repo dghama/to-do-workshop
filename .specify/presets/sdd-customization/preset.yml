@@ -3,7 +3,7 @@ schema_version: "1.0"
 preset:
   id: "sdd-customization"
   name: "SDD Customization"
-  version: "1.1.0"
+  version: "1.2.0"
   description: "Add reusable, integration-neutral guidance across the Spec Kit SDD lifecycle"
 
 requires:
@@ -14,8 +14,8 @@ provides:
     - type: "template"
       name: "spec-template"
       file: "templates/spec-template.md"
-      description: "Append reusable use-case fields to the feature specification"
-      strategy: "append"
+      description: "Replace the feature specification with the SDD specification structure"
+      strategy: "replace"
     - type: "template"
       name: "plan-template"
       file: "templates/plan-template.md"
